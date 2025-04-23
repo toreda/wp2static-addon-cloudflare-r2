@@ -105,6 +105,16 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
+            'r2Endpoint',
+            '',
+            'R2 Endpoint URL',
+            ''
+        );
+
+        $wpdb->query( $query );
+
+        $query = $wpdb->prepare(
+            $query_string,
             'cfApiKey',
             '',
             'Cloudflare API Key',
@@ -115,8 +125,8 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
-            'r2Region',
-            '',
+            'cfRegion',
+            'auto',
             'Region',
             ''
         );
