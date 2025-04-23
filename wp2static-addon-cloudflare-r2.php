@@ -18,8 +18,8 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WP2STATIC_CLOUDFLARE_R2_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP2STATIC_CLOUDFLARE_R2_VERSION', '0.0.1' );
 
-if ( file_exists( WP2STATIC_S3_PATH . 'vendor/autoload.php' ) ) {
-    require_once WP2STATIC_S3_PATH . 'vendor/autoload.php';
+if ( file_exists( WP2STATIC_CLOUDFLARE_R2_PATH . 'vendor/autoload.php' ) ) {
+    require_once WP2STATIC_CLOUDFLARE_R2_PATH . 'vendor/autoload.php';
 }
 
 function run_wp2static_addon_cloudflare_r2() : void {
