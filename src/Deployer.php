@@ -77,8 +77,8 @@ class Deployer {
                 }
 
                 $s3_key =
-                    Controller::getValue( 's3RemotePath' ) ?
-                    Controller::getValue( 's3RemotePath' ) . '/' .
+                    Controller::getValue( 'r2Endpoint' ) ?
+                    Controller::getValue( 'r2Endpoint' ) . '/' .
                     ltrim( $cache_key, '/' ) :
                     ltrim( $cache_key, '/' );
 
