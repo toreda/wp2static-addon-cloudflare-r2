@@ -1,5 +1,5 @@
 {
-    "name": "@toreda/wp2static-addon-cloudflare-r2",
+    "name": "toreda/wp2static-addon-cloudflare-r2",
     "description": "Cloudflare R2 deployment Add-on for WP2Static.",
     "homepage": "https://www.toreda.com",
       "license": "MIT",
@@ -31,20 +31,23 @@
     },
     "autoload": {
         "psr-4": {
-            "WP2StaticS3\\": "src/"
+            "WP2StaticCloudflareR2\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "PHPStan\\WordPress\\": "tests/phpstan/",
-            "WP2StaticS3\\": "src/"
+            "WP2StaticCloudflareR2\\": "src/"
         }
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "classmap-authoritative": true
+        "classmap-authoritative": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "scripts": {
         "phpstan": "php -d memory_limit=-1 vendor/bin/phpstan analyse",
