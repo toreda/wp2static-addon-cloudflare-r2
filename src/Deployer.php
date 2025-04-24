@@ -182,9 +182,8 @@ class Deployer {
         $client_options = [
             'version' => 'latest',
             'driver' => 's3',
-            'bucket_endpoint' => true,
             'endpoint' => $endpoint,
-            'use_path_style_endpoint' => false,
+            'use_path_style_endpoint' => true,
             'bucket' => Controller::getValue('bucket'),
             'region' => Controller::getValue( 'region' ),
             'throw' => true
