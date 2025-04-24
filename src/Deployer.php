@@ -46,7 +46,8 @@ class Deployer {
             )
         );
 
-        $object_acl = Controller::getValue( 's3ObjectACL' );
+        //$object_acl = Controller::getValue( 's3ObjectACL' );
+        $object_acl = 'private';
         $put_data = [
             'Bucket' => Controller::getValue( 'bucket' ),
             'ACL'    => $object_acl === '' ? 'public-read' : $object_acl,
