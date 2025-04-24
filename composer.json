@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7.3",
-        "aws/aws-sdk-php": "^3.166.1"
+        "aws/aws-sdk-php": "^3.337.1"
     },
     "require-dev": {
         "phpstan/phpstan": "*",
