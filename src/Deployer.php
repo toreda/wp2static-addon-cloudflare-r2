@@ -35,9 +35,9 @@ class Deployer {
 
         $namespace = self::DEFAULT_NAMESPACE;
 
-        // instantiate S3 client
-        $s3 = self::s3Client();
         $r2EndpointUrl = $this->getR2EndpointUrl();
+        // instantiate S3 client
+        $s3 = self::s3Client($r2EndpointUrl);
 
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
@@ -177,11 +177,12 @@ class Deployer {
 
     }
 
-    public static function s3Client() : \Aws\S3\S3Client {
+    public static function s3Client($endpoint) : \Aws\S3\S3Client {
+
         $client_options = [
             'version' => 'latest',
             'driver' => 's3',
-            'endpoint' => Controller::getValue('endpoint'),
+            'endpoint' => $endpoint,
             //'url' => Controller::getValue('r2Url'),
             'bucket' => Controller::getValue('bucket'),
             'region' => Controller::getValue( 'region' )
