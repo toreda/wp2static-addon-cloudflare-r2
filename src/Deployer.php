@@ -28,7 +28,7 @@ class Deployer {
 
     public function getR2TempCredentials($accountId, $bucket, $apiKey) {
 
-        $url = this->getR2TempCredentials($accountId);
+        $url = this->getR2TempCredentialsUrl($accountId);
         $response = ClientHandler::handle('GET', $url, [
             'headers' => [
                 'X-Auth-Key' => $apiKey],
@@ -43,6 +43,12 @@ class Deployer {
         $data = $response->json();
 
         print_r('response data for ' . $url . ': ', $data);
+
+        return [
+            'accessKeyId' => $data->acccessKeyId,
+            'secretAccessKey' => $data->secretAccessKey,
+            'sessionToken' => $data->sessionToken
+        ];
     }
 
     public function uploadFiles( string $processed_site_path ) {
@@ -58,6 +64,10 @@ class Deployer {
         // instantiate S3 client
         $s3 = self::s3Client($r2EndpointUrl);
 
+        $accountId = Controller::getValue('accountId');
+        $bucket = Controller::getValue( 'bucket' );
+        $apiKeyRaw = Controller::getValue( 'apiKey' );
+        $credentials = $this->getR2TempCredentials($accountId, $bucket, $apiKeyRaw);
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(
@@ -68,7 +78,7 @@ class Deployer {
         // ACL removed for R2 per the current feature support (April 2025):
         // https://developers.cloudflare.com/r2/api/s3/api/#implemented-object-level-operations
         $put_data = [
-            'Bucket' => Controller::getValue( 'bucket' )
+            'Bucket' => $bucket
         ];
 
         $cache_control = Controller::getValue( 's3CacheControl' );
