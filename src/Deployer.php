@@ -23,6 +23,7 @@ class Deployer {
     public function getR2EndpointUrl(): string {
         $bucket = Controller::getValue('bucket');
         $accountId = Controller::getValue('accountId');
+        echo 'accountId: ' . $accountId . ' with bucket: ' . $bucket;
 
         return 'https://' . $accountId . '.r2.cloudflarestorage.com/' . $bucket;
     }
