@@ -174,13 +174,9 @@ class Deployer {
                 );
             }
         }
-
-        $num_stale = count( $cf_stale_paths );
-
     }
 
     public static function s3Client($endpoint) : \Aws\S3\S3Client {
-
         $client_options = [
             'version' => 'latest',
             'driver' => 's3',
