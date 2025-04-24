@@ -185,7 +185,7 @@ class Deployer {
             'endpoint' => $endpoint,
             'use_path_style_endpoint' => true,
             'bucket' => Controller::getValue('bucket'),
-            'region' => Controller::getValue( 'region' ),
+            'region' => 'auto',
             'throw' => true
         ];
 
