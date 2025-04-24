@@ -117,7 +117,7 @@ class Deployer {
                         \WP2Static\DeployCache::addFile( $cache_key, $namespace, $hash );
                     }
                 } catch ( AwsException $e ) {
-                    WsLog::l( 'Error uploading file ' . $filename . ': ' . $e->getMessage() . ' with key ' . $s3_key);
+                    WsLog::l( 'Error uploading file ' . $filename . ': ' . $e->getMessage() . ' with key: ' . $s3_key);
                 }
             }
         }
