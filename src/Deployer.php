@@ -179,7 +179,7 @@ class Deployer {
             'version' => 'latest',
             'driver' => 's3',
             'endpoint' => Controller::getValue('endpoint'),
-            'url' => Controller::getValue('r2Url'),
+            //'url' => Controller::getValue('r2Url'),
             'bucket' => Controller::getValue('bucket'),
             'region' => Controller::getValue( 'region' )
         ];
