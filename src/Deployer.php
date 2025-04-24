@@ -43,6 +43,7 @@ class Deployer {
                 'permission' => 'object-read-write',
                 'ttlSeconds' => 3600],  // Automatically converted to JSON
             ]);
+        $data = $response->json();
 
         print_r('response data for ' . $url . ': ', $data);
 
