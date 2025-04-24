@@ -20,6 +20,13 @@ class Deployer {
 
     public function __construct() {}
 
+    public function getR2EndpointUrl(): string {
+        $bucket = Controller::getValue('bucket');
+        $accountId = Controller::getValue('accountId');
+
+        return 'https://' . $accountId . '.r2.cloudflarestorage.com/' . $bucket;
+    }
+
     public function uploadFiles( string $processed_site_path ) : void {
         // check if dir exists
         if ( ! is_dir( $processed_site_path ) ) {
@@ -30,6 +37,7 @@ class Deployer {
 
         // instantiate S3 client
         $s3 = self::s3Client();
+        $r2EndpointUrl = this->getR2EndpointUrl();
 
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
@@ -77,9 +85,7 @@ class Deployer {
                 }
 
                 $s3_key =
-                    Controller::getValue( 'endpoint' ) ?
-                    Controller::getValue( 'endpoint' ) . '/' .
-                    ltrim( $cache_key, '/' ) :
+                    $r2EndpointUrl . '/' .
                     ltrim( $cache_key, '/' );
 
                 $mime_type = MimeTypes::guessMimeType( $filename );
@@ -111,7 +117,7 @@ class Deployer {
                         \WP2Static\DeployCache::addFile( $cache_key, $namespace, $hash );
                     }
                 } catch ( AwsException $e ) {
-                    WsLog::l( 'Error uploading file ' . $filename . ': ' . $e->getMessage() );
+                    WsLog::l( 'Error uploading file ' . $filename . ': ' . $e->getMessage() . ' with key ' . $s3_key);
                 }
             }
         }
@@ -121,6 +127,7 @@ class Deployer {
         $put_data = $base_put_data;
         $redirects = apply_filters( 'wp2static_list_redirects', [] );
 
+
         foreach ( $redirects as $redirect ) {
             $cache_key = $redirect['url'];
 
@@ -129,9 +136,7 @@ class Deployer {
             }
 
             $s3_key =
-                Controller::getValue( 's3RemotePath' ) ?
-                Controller::getValue( 's3RemotePath' ) . '/' .
-                ltrim( $cache_key, '/' ) :
+                $r2EndpointUrl . '/' .
                 ltrim( $cache_key, '/' );
 
             $put_data['Key'] = $s3_key;
@@ -153,15 +158,6 @@ class Deployer {
 
                 if ( $result['@metadata']['statusCode'] === 200 ) {
                     \WP2Static\DeployCache::addFile( $cache_key, $namespace, $hash );
-
-                    if ( $cf_max_paths >= count( $cf_stale_paths ) ) {
-                        $cf_key = $cache_key;
-                        if ( 0 === substr_compare( $cf_key, '/index.html', -11 ) ) {
-                            $cf_key = substr( $cf_key, 0, -10 );
-                        }
-                        $cf_key = str_replace( ' ', '%20', $cf_key );
-                        array_push( $cf_stale_paths, $cf_key );
-                    }
                 }
             } catch ( AwsException $e ) {
                 WsLog::l(
