@@ -66,7 +66,12 @@ class Deployer {
 
         $accountId = Controller::getValue('accountId');
         $bucket = Controller::getValue( 'bucket' );
-        $apiKeyRaw = Controller::getValue( 'apiKey' );
+        $apiTokenRaw = Controller::getValue( 'apiToken' );
+        $apiToken = \WP2Static\CoreOptions::encrypt_decrypt(
+                    'decrypt',
+                    $apiTokenRaw
+        );
+
         $credentials = $this->getR2TempCredentials($accountId, $bucket, $apiKeyRaw);
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
@@ -218,9 +223,10 @@ class Deployer {
         ];
 
         $accountId = Controller::getValue( 'accountId' );
+        $apiTokenRaw = Controller::getValue( 'apiToken' );
         $apiToken = \WP2Static\CoreOptions::encrypt_decrypt(
                     'decrypt',
-                    Controller::getValue( 'apiToken' )
+                    $apiTokenRaw
         );
 
         if (!$accountId ||!$apiToken) {
@@ -231,7 +237,7 @@ class Deployer {
             'key' => $accountId,
             'secret' => $apiToken
         ];
-        \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken );
+        \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken . ' (raw:' . $apiKeyRaw . ')');
 
         return new \Aws\S3\S3Client( $client_options );
     }
