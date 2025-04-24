@@ -9,6 +9,7 @@ use Aws\Exception\AwsException;
 use WP2Static\WsLog;
 use Fetch\Http\ClientHandler;
 use GuzzleHttp\Client;
+use Fetch;
 
 class Deployer {
 
