@@ -37,7 +37,7 @@ class Deployer {
 
         // instantiate S3 client
         $s3 = self::s3Client();
-        $r2EndpointUrl = this->getR2EndpointUrl();
+        $r2EndpointUrl = $this->getR2EndpointUrl();
 
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
