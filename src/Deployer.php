@@ -8,6 +8,7 @@ use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use WP2Static\WsLog;
 use Fetch\Http\ClientHandler;
+use GuzzleHttp\Client;
 
 class Deployer {
 
@@ -29,6 +30,7 @@ class Deployer {
     public function getR2TempCredentials($accountId, $bucket, $apiKey) {
 
         $url = $this->getR2TempCredentialsUrl($accountId);
+/*
         $response = ClientHandler::handle('GET', $url, [
             'headers' => [
                 'X-Auth-Key' => $apiKey],
@@ -38,8 +40,17 @@ class Deployer {
                 'permission' => 'object-read-write',
                 'ttlSeconds' => 3600
             ]
-        ]);
+        ]); */
 
+        $response = fetch()
+            ->baseUri($url)
+            ->withHeaders('X-Auth-Key', $apiKey)
+            ->withBody([
+                'bucket' => $bucket,
+                'parentAccessKeyId' => $accountId,
+                'permission' => 'object-read-write',
+                'ttlSeconds' => 3600
+            ]);
         $data = $response->json();
 
         print_r('response data for ' . $url . ': ', $data);
@@ -72,7 +83,7 @@ class Deployer {
                     $apiTokenRaw
         );
 
-        //$credentials = $this->getR2TempCredentials($accountId, $bucket, $apiKeyRaw);
+        $credentials = $this->getR2TempCredentials($accountId, $bucket, $apiToken);
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(
