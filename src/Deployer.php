@@ -41,7 +41,7 @@ class Deployer {
 
         $object_acl = Controller::getValue( 's3ObjectACL' );
         $put_data = [
-            'Bucket' => Controller::getValue( 's3Bucket' ),
+            'Bucket' => Controller::getValue( 'bucket' ),
             'ACL'    => $object_acl === '' ? 'public-read' : $object_acl,
         ];
 
@@ -77,8 +77,8 @@ class Deployer {
                 }
 
                 $s3_key =
-                    Controller::getValue( 'r2Endpoint' ) ?
-                    Controller::getValue( 'r2Endpoint' ) . '/' .
+                    Controller::getValue( 'endpoint' ) ?
+                    Controller::getValue( 'endpoint' ) . '/' .
                     ltrim( $cache_key, '/' ) :
                     ltrim( $cache_key, '/' );
 
