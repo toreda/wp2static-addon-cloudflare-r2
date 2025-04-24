@@ -22,7 +22,7 @@ class Deployer {
 
     public function getR2EndpointUrl(): string {
         $bucket = Controller::getValue('bucket');
-        $accountId = Controller::getValue('cfAccountId');
+        $accountId = Controller::getValue('accountId');
 
         return 'https://' . $accountId . '.r2.cloudflarestorage.com';
     }
@@ -194,16 +194,16 @@ class Deployer {
         ];
 
         $accountId = Controller::getValue( 'accountId' );
-        $apiKey = \WP2Static\CoreOptions::encrypt_decrypt(
+        $apiToken = \WP2Static\CoreOptions::encrypt_decrypt(
                     'decrypt',
-                    Controller::getValue( 'apiKey' )
+                    Controller::getValue( 'apiToken' )
         );
 
-        if (!$accountId ||!$apiKey) {
-            throw new Exception('Missing accountId or apiKey');
+        if (!$accountId ||!$apiToken) {
+            throw new Exception('Missing accountId or apiToken');
         }
 
-        $credentials = Aws\Credentials\Credentials($accountId, $apiKey);
+        $credentials = Aws\Credentials\Credentials($accountId, $apiToken);
         $client_options['credentials'] = $credentials;
 
 

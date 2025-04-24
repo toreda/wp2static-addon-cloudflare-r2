@@ -105,16 +105,16 @@
         <tr>
             <td style="width:50%;">
                 <label
-                    for="<?php echo $view['options']['apiKey']->name; ?>"
-                ><?php echo $view['options']['apiKey']->label; ?></label>
+                    for="<?php echo $view['options']['apiToken']->name; ?>"
+                ><?php echo $view['options']['apiToken']->label; ?></label>
             </td>
             <td>
                 <input
-                    id="<?php echo $view['options']['apiKey']->name; ?>"
-                    name="<?php echo $view['options']['apiKey']->name; ?>"
+                    id="<?php echo $view['options']['apiToken']->name; ?>"
+                    name="<?php echo $view['options']['apiToken']->name; ?>"
                     type="password"
-                    value="<?php echo $view['options']['apiKey']->value !== '' ?
-                        \WP2Static\CoreOptions::encrypt_decrypt( 'decrypt', $view['options']['apiKey']->value ) :
+                    value="<?php echo $view['options']['apiToken']->value !== '' ?
+                        \WP2Static\CoreOptions::encrypt_decrypt( 'decrypt', $view['options']['apiToken']->value ) :
                         ''; ?>"
                 />
             </td>

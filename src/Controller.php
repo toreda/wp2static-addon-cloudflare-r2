@@ -95,7 +95,7 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
-            'cfAccountId',
+            'accountId',
             '',
             'Cloudflare Account ID',
             ''
@@ -125,9 +125,9 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
-            'cfApiKey',
+            'apiToken',
             '',
-            'Cloudflare API Key',
+            'Cloudflare API Token',
             ''
         );
 
@@ -323,17 +323,17 @@ class Controller {
         );
 
         $secret_access_key =
-            $_POST['apiKey'] ?
+            $_POST['apiToken'] ?
             \WP2Static\CoreOptions::encrypt_decrypt(
                 'encrypt',
-                sanitize_text_field( $_POST['apiKey'] )
+                sanitize_text_field( $_POST['apiToken'] )
             ) : '';
 
 
         $wpdb->update(
             $table_name,
             [ 'value' => $secret_access_key ],
-            [ 'name' => 'apiKey' ]
+            [ 'name' => 'apiToken' ]
         );
 
         $wpdb->update(
