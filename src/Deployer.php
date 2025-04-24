@@ -186,6 +186,8 @@ class Deployer {
             'use_path_style_endpoint' => true,
             'bucket' => Controller::getValue('bucket'),
             'region' => 'auto',
+            'request_checksum_calculation' => 'when_required',
+            'response_checksum_validation' => 'when_required',
             'throw' => true
         ];
 
@@ -208,8 +210,8 @@ class Deployer {
                     Controller::getValue( 'cfApiKey' )
                 ),
             ];
-        } elseif ( Controller::getValue( 's3Profile' ) ) {
-            $client_options['profile'] = Controller::getValue( 's3Profile' );
+        } else {
+            throw new Exception('No credentials');
         }
 
         return new \Aws\S3\S3Client( $client_options );
