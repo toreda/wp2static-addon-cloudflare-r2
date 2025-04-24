@@ -105,6 +105,16 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
+            'pathPrefix',
+            '',
+            'Path Prefix in Bucket',
+            ''
+        );
+
+        $wpdb->query( $query );
+
+        $query = $wpdb->prepare(
+            $query_string,
             'endpoint',
             '',
             'R2 Endpoint URL',
@@ -296,6 +306,12 @@ class Controller {
 
         $wpdb->update(
             $table_name,
+            [ 'value' => sanitize_text_field( $_POST['pathPrefix'] ) ],
+            [ 'name' => 'pathPrefix' ]
+        );
+
+        $wpdb->update(
+            $table_name,
             [ 'value' => sanitize_text_field( $_POST['bucket'] ) ],
             [ 'name' => 'bucket' ]
         );
@@ -312,6 +328,7 @@ class Controller {
                 'encrypt',
                 sanitize_text_field( $_POST['cfApiKey'] )
             ) : '';
+
 
         $wpdb->update(
             $table_name,

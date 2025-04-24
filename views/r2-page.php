@@ -73,6 +73,23 @@
         <tr>
             <td style="width:50%;">
                 <label
+                    for="<?php echo $view['options']['pathPrefix']->name; ?>"
+                ><?php echo $view['options']['pathPrefix']->label; ?></label>
+            </td>
+            <td>
+                <input
+                    id="<?php echo $view['options']['pathPrefix']->name; ?>"
+                    name="<?php echo $view['options']['pathPrefix']->name; ?>"
+                    type="text"
+                    value="<?php echo $view['options']['pathPrefix']->value !== '' ? $view['options']['pathPrefix']->value : ''; ?>"
+                />
+            </td>
+        </tr>
+
+
+        <tr>
+            <td style="width:50%;">
+                <label
                     for="<?php echo $view['options']['cfAccountId']->name; ?>"
                 ><?php echo $view['options']['cfAccountId']->label; ?></label>
             </td>

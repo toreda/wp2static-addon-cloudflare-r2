@@ -84,8 +84,12 @@ class Deployer {
                     continue;
                 }
 
+                $path_prefix = Controller::getValue( 'pathPrefix' ) ?? '';
+
                 $s3_key =
-                    $r2EndpointUrl . '/' .
+                    $path_prefix ?
+                    $path_prefix . '/' .
+                    ltrim( $cache_key, '/' ) :
                     ltrim( $cache_key, '/' );
 
                 $mime_type = MimeTypes::guessMimeType( $filename );
@@ -134,9 +138,12 @@ class Deployer {
             if ( mb_substr( $cache_key, -1 ) === '/' ) {
                 $cache_key = $cache_key . 'index.html';
             }
+            $path_prefix = Controller::getValue( 'pathPrefix' ) ?? '';
 
             $s3_key =
-                $r2EndpointUrl . '/' .
+                $path_prefix ?
+                $path_prefix . '/' .
+                ltrim( $cache_key, '/' ) :
                 ltrim( $cache_key, '/' );
 
             $put_data['Key'] = $s3_key;
