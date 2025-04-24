@@ -25,15 +25,15 @@
         <tr>
             <td style="width:50%;">
                 <label
-                    for="<?php echo $view['options']['r2Bucket']->name; ?>"
-                ><?php echo $view['options']['r2Bucket']->label; ?></label>
+                    for="<?php echo $view['options']['bucket']->name; ?>"
+                ><?php echo $view['options']['bucket']->label; ?></label>
             </td>
             <td>
                 <input
-                    id="<?php echo $view['options']['r2Bucket']->name; ?>"
-                    name="<?php echo $view['options']['r2Bucket']->name; ?>"
+                    id="<?php echo $view['options']['bucket']->name; ?>"
+                    name="<?php echo $view['options']['bucket']->name; ?>"
                     type="text"
-                    value="<?php echo $view['options']['r2Bucket']->value !== '' ? $view['options']['r2Bucket']->value : ''; ?>"
+                    value="<?php echo $view['options']['bucket']->value !== '' ? $view['options']['r2Bucket']->value : ''; ?>"
                 />
             </td>
         </tr>
@@ -41,15 +41,15 @@
         <tr>
             <td style="width:50%;">
                 <label
-                    for="<?php echo $view['options']['r2Endpoint']->name; ?>"
-                ><?php echo $view['options']['r2Endpoint']->label; ?></label>
+                    for="<?php echo $view['options']['endpoint']->name; ?>"
+                ><?php echo $view['options']['endpoint']->label; ?></label>
             </td>
             <td>
                 <input
-                    id="<?php echo $view['options']['r2Endpoint']->name; ?>"
-                    name="<?php echo $view['options']['r2Endpoint']->name; ?>"
+                    id="<?php echo $view['options']['endpoint']->name; ?>"
+                    name="<?php echo $view['options']['endpoint']->name; ?>"
                     type="text"
-                    value="<?php echo $view['options']['r2Endpoint']->value !== '' ? $view['options']['r2Endpoint']->value : ''; ?>"
+                    value="<?php echo $view['options']['endpoint']->value !== '' ? $view['options']['endpoint']->value : ''; ?>"
                 />
             </td>
         </tr>
@@ -57,15 +57,15 @@
         <tr>
             <td style="width:50%;">
                 <label
-                    for="<?php echo $view['options']['cfRegion']->name; ?>"
-                ><?php echo $view['options']['cfRegion']->label; ?></label>
+                    for="<?php echo $view['options']['region']->name; ?>"
+                ><?php echo $view['options']['region']->label; ?></label>
             </td>
             <td>
                 <input
-                    id="<?php echo $view['options']['cfRegion']->name; ?>"
-                    name="<?php echo $view['options']['cfRegion']->name; ?>"
+                    id="<?php echo $view['options']['region']->name; ?>"
+                    name="<?php echo $view['options']['region']->name; ?>"
                     type="text"
-                    value="<?php echo $view['options']['cfRegion']->value !== '' ? $view['options']['cfRegion']->value : ''; ?>"
+                    value="<?php echo $view['options']['region']->value !== '' ? $view['options']['region']->value : ''; ?>"
                 />
             </td>
         </tr>

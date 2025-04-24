@@ -178,10 +178,10 @@ class Deployer {
         $client_options = [
             'version' => 'latest',
             'driver' => 's3',
-            'endpoint' => Controller::getValue('r2Endpoint'),
+            'endpoint' => Controller::getValue('endpoint'),
             'url' => Controller::getValue('r2Url'),
-            'bucket' => Controller::getValue('r2Bucket'),
-            'region' => Controller::getValue( 'cfRegion' )
+            'bucket' => Controller::getValue('bucket'),
+            'region' => Controller::getValue( 'region' )
         ];
 
         /*

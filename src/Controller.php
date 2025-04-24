@@ -85,7 +85,7 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
-            'r2Bucket',
+            'bucket',
             '',
             'R2 Bucket name',
             ''
@@ -105,7 +105,7 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
-            'r2Endpoint',
+            'endpoint',
             '',
             'R2 Endpoint URL',
             ''
@@ -125,7 +125,7 @@ class Controller {
 
         $query = $wpdb->prepare(
             $query_string,
-            'cfRegion',
+            'region',
             'auto',
             'Region',
             ''
@@ -290,14 +290,14 @@ class Controller {
 
         $wpdb->update(
             $table_name,
-            [ 'value' => sanitize_text_field( $_POST['r2Endpoint'] ) ],
-            [ 'name' => 'r2Endpoint' ]
+            [ 'value' => sanitize_text_field( $_POST['endpoint'] ) ],
+            [ 'name' => 'endpoint' ]
         );
 
         $wpdb->update(
             $table_name,
-            [ 'value' => sanitize_text_field( $_POST['r2Bucket'] ) ],
-            [ 'name' => 'r2Bucket' ]
+            [ 'value' => sanitize_text_field( $_POST['bucket'] ) ],
+            [ 'name' => 'bucket' ]
         );
 
         $wpdb->update(
@@ -321,16 +321,9 @@ class Controller {
 
         $wpdb->update(
             $table_name,
-            [ 'value' => sanitize_text_field( $_POST['cfRegion'] ) ],
-            [ 'name' => 'cfRegion' ]
+            [ 'value' => sanitize_text_field( $_POST['region'] ) ],
+            [ 'name' => 'region' ]
         );
-
-/*
-        $wpdb->update(
-            $table_name,
-            [ 'value' => sanitize_text_field( $_POST['s3RemotePath'] ) ],
-            [ 'name' => 's3RemotePath' ]
-        ); */
 
 
         wp_safe_redirect( admin_url( 'admin.php?page=wp2static-addon-cloudflare-r2' ) );
