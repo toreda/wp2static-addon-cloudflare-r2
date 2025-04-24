@@ -183,9 +183,10 @@ class Deployer {
             'version' => 'latest',
             'driver' => 's3',
             'endpoint' => $endpoint,
-            //'url' => Controller::getValue('r2Url'),
+            'use_path_style_endpoint' => false,
             'bucket' => Controller::getValue('bucket'),
-            'region' => Controller::getValue( 'region' )
+            'region' => Controller::getValue( 'region' ),
+            'throw' => true
         ];
 
         /*
