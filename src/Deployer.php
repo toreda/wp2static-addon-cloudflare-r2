@@ -28,7 +28,7 @@ class Deployer {
 
     public function getR2TempCredentials($accountId, $bucket, $apiKey) {
 
-        $url = this->getR2TempCredentialsUrl($accountId);
+        $url = $this->getR2TempCredentialsUrl($accountId);
         $response = ClientHandler::handle('GET', $url, [
             'headers' => [
                 'X-Auth-Key' => $apiKey],
