@@ -24,7 +24,7 @@ class Deployer {
         $bucket = Controller::getValue('bucket');
         $accountId = Controller::getValue('cfAccountId');
 
-        return 'https://' . $accountId . '.r2.cloudflarestorage.com/' . $bucket;
+        return 'https://' . $accountId . '.r2.cloudflarestorage.com';
     }
 
     public function uploadFiles( string $processed_site_path ) : void {
