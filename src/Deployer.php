@@ -35,6 +35,7 @@ class Deployer {
         $namespace = self::DEFAULT_NAMESPACE;
 
         $r2EndpointUrl = $this->getR2EndpointUrl();
+
         // instantiate S3 client
         $s3 = self::s3Client($r2EndpointUrl);
 
@@ -45,12 +46,10 @@ class Deployer {
                 RecursiveDirectoryIterator::SKIP_DOTS
             )
         );
-
-        //$object_acl = Controller::getValue( 's3ObjectACL' );
-        $object_acl = 'private';
+        // ACL removed for R2 per the current feature support (April 2025):
+        // https://developers.cloudflare.com/r2/api/s3/api/#implemented-object-level-operations
         $put_data = [
-            'Bucket' => Controller::getValue( 'bucket' ),
-            'ACL'    => $object_acl === '' ? 'public-read' : $object_acl,
+            'Bucket' => Controller::getValue( 'bucket' )
         ];
 
         $cache_control = Controller::getValue( 's3CacheControl' );
@@ -204,6 +203,7 @@ class Deployer {
             'key' => $accountId,
             'secret' => $apiToken
         ];
+                    \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken );
 
         return new \Aws\S3\S3Client( $client_options );
     }
