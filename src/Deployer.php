@@ -72,7 +72,7 @@ class Deployer {
                     $apiTokenRaw
         );
 
-        $credentials = $this->getR2TempCredentials($accountId, $bucket, $apiKeyRaw);
+        //$credentials = $this->getR2TempCredentials($accountId, $bucket, $apiKeyRaw);
         // iterate each file in ProcessedSite
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(
@@ -237,7 +237,7 @@ class Deployer {
             'key' => $accountId,
             'secret' => $apiToken
         ];
-        \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken . ' (raw:' . $apiKeyRaw . ')');
+        \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken);
 
         return new \Aws\S3\S3Client( $client_options );
     }
