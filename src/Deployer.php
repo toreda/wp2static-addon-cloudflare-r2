@@ -99,6 +99,7 @@ class Deployer {
 
                 $put_data['Key'] = $s3_key;
                 $put_data['ContentType'] = $mime_type;
+                $put_data['ChecksumAlgorithm'] = 'CRC32';
                 $put_data_hash = md5( (string) json_encode( $put_data ) );
                 $put_data['Body'] = file_get_contents( $filename );
                 $body_hash = md5( (string) $put_data['Body'] );
