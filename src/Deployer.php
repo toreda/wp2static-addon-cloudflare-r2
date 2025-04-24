@@ -9,7 +9,6 @@ use Aws\Exception\AwsException;
 use WP2Static\WsLog;
 use Fetch\Http\ClientHandler;
 use GuzzleHttp\Client;
-use Fetch;
 
 class Deployer {
 
@@ -31,28 +30,19 @@ class Deployer {
     public function getR2TempCredentials($accountId, $bucket, $apiKey) {
 
         $url = $this->getR2TempCredentialsUrl($accountId);
-/*
-        $response = ClientHandler::handle('GET', $url, [
+
+        $response = fetch($url, [
+            'method' => 'POST',
             'headers' => [
-                'X-Auth-Key' => $apiKey],
+                'Content-Type' => 'application/json',
+                'X-Auth-Key' => $apiKey
+            ],
             'body' => [
                 'bucket' => $bucket,
                 'parentAccessKeyId' => $accountId,
                 'permission' => 'object-read-write',
-                'ttlSeconds' => 3600
-            ]
-        ]); */
-
-        $response = fetch()
-            ->baseUri($url)
-            ->withHeaders(['X-Auth-Key' => $apiKey])
-            ->withBody([
-                'bucket' => $bucket,
-                'parentAccessKeyId' => $accountId,
-                'permission' => 'object-read-write',
-                'ttlSeconds' => 3600
+                'ttlSeconds' => 3600],  // Automatically converted to JSON
             ]);
-        $data = $response->json();
 
         print_r('response data for ' . $url . ': ', $data);
 
