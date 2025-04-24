@@ -318,22 +318,22 @@ class Controller {
 
         $wpdb->update(
             $table_name,
-            [ 'value' => sanitize_text_field( $_POST['cfAccountId'] ) ],
-            [ 'name' => 'cfAccountId' ]
+            [ 'value' => sanitize_text_field( $_POST['accountId'] ) ],
+            [ 'name' => 'accountId' ]
         );
 
         $secret_access_key =
-            $_POST['cfApiKey'] ?
+            $_POST['apiKey'] ?
             \WP2Static\CoreOptions::encrypt_decrypt(
                 'encrypt',
-                sanitize_text_field( $_POST['cfApiKey'] )
+                sanitize_text_field( $_POST['apiKey'] )
             ) : '';
 
 
         $wpdb->update(
             $table_name,
             [ 'value' => $secret_access_key ],
-            [ 'name' => 'cfApiKey' ]
+            [ 'name' => 'apiKey' ]
         );
 
         $wpdb->update(

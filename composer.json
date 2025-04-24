@@ -5,7 +5,7 @@
       "license": "MIT",
       "authors": [
         {
-          "name": "Michael Brich",
+          "name": "Michael Brich <Toreda, Inc>",
           "email": "mike@toreda.com",
           "homepage": "https://www.toreda.com"
         }
@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7.3",
-        "aws/aws-sdk-php": "^3.337.1"
+        "aws/aws-sdk-php": "^3.342"
     },
     "require-dev": {
         "phpstan/phpstan": "*",

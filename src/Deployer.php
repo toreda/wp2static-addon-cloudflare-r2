@@ -122,7 +122,7 @@ class Deployer {
                         \WP2Static\DeployCache::addFile( $cache_key, $namespace, $hash );
                     }
                 } catch ( AwsException $e ) {
-                    WsLog::l( 'Error uploading file ' . $filename . ': ' . $e->getMessage() . ' with key: ' . $s3_key);
+                    WsLog::l( 'Error uploading file [' . $filename . ']: ' . $e->getMessage() . ' with key: [' . $s3_key . ']');
                 }
             }
         }
@@ -193,28 +193,19 @@ class Deployer {
             'throw' => true
         ];
 
-        /*
-           If no credentials option, SDK attempts to load credentials from
-           your environment in the following order:
-
-           - environment variables.
-           - a credentials .ini file.
-           - an IAM role.
-         */
-        if (
-            Controller::getValue( 'cfAccountId' ) &&
-            Controller::getValue( 'cfApiKey' )
-        ) {
-            $client_options['credentials'] = [
-                'key' => Controller::getValue( 'cfAccountId' ),
-                'secret' => \WP2Static\CoreOptions::encrypt_decrypt(
+        $accountId = Controller::getValue( 'accountId' );
+        $apiKey = \WP2Static\CoreOptions::encrypt_decrypt(
                     'decrypt',
-                    Controller::getValue( 'cfApiKey' )
-                ),
-            ];
-        } else {
-            throw new Exception('No credentials');
+                    Controller::getValue( 'apiKey' )
+        );
+
+        if (!$accountId ||!$apiKey) {
+            throw new Exception('Missing accountId or apiKey');
         }
+
+        $credentials = Aws\Credentials\Credentials($accountId, $apiKey);
+        $client_options['credentials'] = $credentials;
+
 
         return new \Aws\S3\S3Client( $client_options );
     }

@@ -90,14 +90,14 @@
         <tr>
             <td style="width:50%;">
                 <label
-                    for="<?php echo $view['options']['cfAccountId']->name; ?>"
-                ><?php echo $view['options']['cfAccountId']->label; ?></label>
+                    for="<?php echo $view['options']['accountId']->name; ?>"
+                ><?php echo $view['options']['accountId']->label; ?></label>
             </td>
             <td>
                 <input
-                    id="<?php echo $view['options']['cfAccountId']->name; ?>"
-                    name="<?php echo $view['options']['cfAccountId']->name; ?>"
-                    value="<?php echo $view['options']['cfAccountId']->value !== '' ? $view['options']['cfAccountId']->value : ''; ?>"
+                    id="<?php echo $view['options']['accountId']->name; ?>"
+                    name="<?php echo $view['options']['accountId']->name; ?>"
+                    value="<?php echo $view['options']['accountId']->value !== '' ? $view['options']['accountId']->value : ''; ?>"
                 />
             </td>
         </tr>
@@ -105,16 +105,16 @@
         <tr>
             <td style="width:50%;">
                 <label
-                    for="<?php echo $view['options']['cfApiKey']->name; ?>"
-                ><?php echo $view['options']['cfApiKey']->label; ?></label>
+                    for="<?php echo $view['options']['apiKey']->name; ?>"
+                ><?php echo $view['options']['apiKey']->label; ?></label>
             </td>
             <td>
                 <input
-                    id="<?php echo $view['options']['cfApiKey']->name; ?>"
-                    name="<?php echo $view['options']['cfApiKey']->name; ?>"
+                    id="<?php echo $view['options']['apiKey']->name; ?>"
+                    name="<?php echo $view['options']['apiKey']->name; ?>"
                     type="password"
-                    value="<?php echo $view['options']['cfApiKey']->value !== '' ?
-                        \WP2Static\CoreOptions::encrypt_decrypt( 'decrypt', $view['options']['cfApiKey']->value ) :
+                    value="<?php echo $view['options']['apiKey']->value !== '' ?
+                        \WP2Static\CoreOptions::encrypt_decrypt( 'decrypt', $view['options']['apiKey']->value ) :
                         ''; ?>"
                 />
             </td>
