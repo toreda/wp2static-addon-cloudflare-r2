@@ -44,7 +44,7 @@ class Deployer {
 
         $response = fetch()
             ->baseUri($url)
-            ->withHeaders('X-Auth-Key', $apiKey)
+            ->withHeaders(['X-Auth-Key' => $apiKey])
             ->withBody([
                 'bucket' => $bucket,
                 'parentAccessKeyId' => $accountId,
