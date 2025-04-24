@@ -148,6 +148,7 @@ class Deployer {
                 ltrim( $cache_key, '/' );
 
             $put_data['Key'] = $s3_key;
+            $put_data['ChecksumAlgorithm'] = 'CRC32';
             $put_data['WebsiteRedirectLocation'] = $redirect['redirect_to'];
             $hash = md5( (string) json_encode( $put_data ) );
 
