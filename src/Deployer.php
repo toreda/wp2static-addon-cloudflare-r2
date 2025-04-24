@@ -6,7 +6,6 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-use Aws\Credentials\Credentials;
 use WP2Static\WsLog;
 
 class Deployer {
@@ -199,9 +198,11 @@ class Deployer {
             throw new Exception('Missing accountId or apiToken');
         }
 
-        $credentials = Aws\Credentials\Credentials($accountId, $apiToken);
-        $client_options['credentials'] = $credentials;
-
+        //$credentials = Aws\Credentials\Credentials($accountId, $apiToken);
+        $client_options['credentials'] = [
+            'key' => $accountId,
+            'secret' => $apiToken
+        ];
 
         return new \Aws\S3\S3Client( $client_options );
     }
