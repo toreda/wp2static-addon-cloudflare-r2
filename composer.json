@@ -15,7 +15,8 @@
     ],
     "require": {
         "php": ">=7.3",
-        "aws/aws-sdk-php": "^3.320.9"
+        "aws/aws-sdk-php": "^3.320.9",
+        "jerome/fetch-php": "^2.0"
     },
     "require-dev": {
         "phpstan/phpstan": "*",

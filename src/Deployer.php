@@ -7,26 +7,45 @@ use RecursiveDirectoryIterator;
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use WP2Static\WsLog;
+use Fetch\Http\ClientHandler;
 
 class Deployer {
 
     const DEFAULT_NAMESPACE = 'wp2static-addon-cloudflare-r2/default';
 
-    // prepare deploy, if modifies URL structure, should be an action
-    // $this->prepareDeploy();
-
-    // options - load from addon's static methods
-
     public function __construct() {}
 
-    public function getR2EndpointUrl(): string {
+    public function getR2EndpointUrl() {
         $bucket = Controller::getValue('bucket');
         $accountId = Controller::getValue('accountId');
 
         return 'https://' . $accountId . '.r2.cloudflarestorage.com';
     }
 
-    public function uploadFiles( string $processed_site_path ) : void {
+    public function getR2TempCredentialsUrl($accountId) {
+        return 'https://api.cloudflare.com/client/v4/accounts/' . $accountId . '/r2/temp-access-credentials';
+    }
+
+    public function getR2TempCredentials($accountId, $bucket, $apiKey) {
+
+        $url = this->getR2TempCredentials($accountId);
+        $response = ClientHandler::handle('GET', $url, [
+            'headers' => [
+                'X-Auth-Key' => $apiKey],
+            'body' => [
+                'bucket' => $bucket,
+                'parentAccessKeyId' => $accountId,
+                'permission' => 'object-read-write',
+                'ttlSeconds' => 3600
+            ]
+        ]);
+
+        $data = $response->json();
+
+        print_r('response data for ' . $url . ': ', $data);
+    }
+
+    public function uploadFiles( string $processed_site_path ) {
         // check if dir exists
         if ( ! is_dir( $processed_site_path ) ) {
             return;
@@ -198,12 +217,11 @@ class Deployer {
             throw new Exception('Missing accountId or apiToken');
         }
 
-        //$credentials = Aws\Credentials\Credentials($accountId, $apiToken);
         $client_options['credentials'] = [
             'key' => $accountId,
             'secret' => $apiToken
         ];
-                    \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken );
+        \WP2Static\WsLog::l( 'key: ' . $accountId . ' secret: ' . $apiToken );
 
         return new \Aws\S3\S3Client( $client_options );
     }
